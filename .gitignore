@@ -4,3 +4,5 @@ staticfiles
 .env
 *~
 db.sq*
+# secrets
+discoursebot/config.py

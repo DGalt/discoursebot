@@ -12,3 +12,6 @@ Discoursebot is a bot to help educate ignorant people on Twitter.
 * Content editors need to be able to add multiple tweets to the same "lesson"
 
 ### The main content needs are:
+* Develop user stories of affinity groups and activists
+* Develop priority lesson content around BLM and femme affinity groups
+* Validate need with activists in affinity groups (e-mail, user interview, personal connects)?

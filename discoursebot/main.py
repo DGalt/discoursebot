@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 
+#import pdb; pdb.set_trace()
+
 import time, urllib, locale, os
-import simplejson as json
+#import simplejson as json
+import json
 from datetime import date, datetime, timedelta
 from config import config
 import requests
@@ -19,71 +22,47 @@ user = '@Discourse_Bot'
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
+since_id = 0
+tweets_to_respond = ""
 
+def load_tweets_to_respond():
+    tweets_to_respond = api.search(q = user)
+    return tweets_to_respond
+
+def respond_to_tweets():
+    tweets_to_respond = load_tweets_to_respond()
+    for result in tweets_to_respond:
+	    response_tweet = "@" + result.author.screen_name + " this is an automated response to all my haters"
+	    print(response_tweet)
+    return
+
+respond_to_tweets()
 #print(api.search(q = user))
-tweets_to_respond = api.search(q = user)
-for x in tweets_to_respond:
-	print(x)
 
-target_user = "@therebutforthe9"
-target_status = 701246615387037697
+# docs : http://tweepy.readthedocs.org/en/v3.5.0/api.html?highlight=update_status#API.search
+#print(parsed_tweets_to_respond)
+#print(type(tweets_to_respond))
 
-#api.update_status("%s this is an attempt to reply from tweepy" % target_user,in_reply_to_status_id=target_status)
-#print(api.verify_credentials())
-
-# ----------------------------------------------------------------
-# END TWEEPY
-# ----------------------------------------------------------------
-
-# check for mentions of Discourse_Bot that should be replied to
-#def check_mentions():
-"""api = twitter.Api(consumer_key=config['consumer_key'],
-                    consumer_secret=config['consumer_secret'],
-                    access_token_key=config['access_token_key'],
-                    access_token_secret=config['access_token_secret'])
-"""
-#print(api.GetStreamFilter(follow=user))
-
-#statuses = api.GetStreamFilter(follow=user)
-#tweets = [s.text for s in statuses]
-#tweetobj = api.GetStreamFilter(follow=user)
-#tweetobj_str = tweetobj.readall().decode('utf-8')
-
-#from simplejson.compat import StringIO
-#io = StringIO(api.GetStreamFilter(follow=user))
-#json.load(io)[0] == api.GetStreamFilter(follow=user)
-#_dict = json.loads(api.GetStreamFilter(follow=user))
-#api.VerifyCredentials()
-#for x in api.GetStreamFilter(follow=user):
-#    print(x)
-#print(r.text)
-
-#for found_tweet in r.text:
-#	print(found_tweet)
-
-"""
-# Get text and post it to Twitter
-def postReply(text, reply_target):
-    api = twitter.Api(consumer_key=config['consumer_key'],
-                        consumer_secret=config['consumer_secret'],
-                        access_token_key=config['access_token_key'],
-                        access_token_secret=config['access_token_secret'])
-
-    status = Api.PostUpdate(text, in_reply_to_status_id = 0x00000153CA4A6938)
+	#print(result.__getstate__())
+	#print(result.id_str)
+	#print("-----")
+	#print(result.entities.user_mentions.id_str)
+	#print(result.author.id_str)
+	#print(result.author.screen_name)
+	#print("-----")
+	#print(result.text)
+	#print("=====TWEET BELOW========")
+	
+	#api.update_status(response_tweet,result.id_str)
+	#print(response_tweet)
+	#print("========================")
 
 
 
-"""
-# Test connection to twitter api
-"""
-def test_api():
-    api = twitter.Api(consumer_key=config['consumer_key'],
-                    consumer_secret=config['consumer_secret'],
-                    access_token_key=config['access_token_key'],
-                    access_token_secret=config['access_token_secret'])
+#tweets_to_respond.__dict__
+#tweets_to_respond.__dir__
+#print(tweets_to_respond.text.encode("ascii",errors="replace").decode("utf8"))
 
-    print(api.VerifyCredentials())
-"""
 # --------------------------------------------------------------
 # main body
 # --------------------------------------------------------------
